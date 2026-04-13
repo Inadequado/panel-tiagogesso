@@ -133,7 +133,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   titulo: {
     fontSize: "1.1rem",
     fontWeight: 600,
-    color: "#3a2e24",
+    color: "#201a16",
     marginBottom: "1.25rem",
   },
   form: {
@@ -156,7 +156,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     borderRadius: "8px",
     border: "1px solid #ddd",
     fontSize: "0.95rem",
-    color: "#3a2e24",
+    color: "#ffffff",
     maxWidth: "200px",
   },
   inputFile: {

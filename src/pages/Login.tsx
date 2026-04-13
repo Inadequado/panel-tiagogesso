@@ -123,7 +123,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     border: "1px solid #ddd",
     fontSize: "1rem",
     outline: "none",
-    color: "#3a2e24",
+    color: "#ffffff",
   },
   erro: {
     color: "#c0392b",
