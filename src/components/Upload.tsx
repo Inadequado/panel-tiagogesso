@@ -7,7 +7,7 @@ interface Props {
 
 const LOCAIS = [
   { valor: "hero", label: "Banner Hero" },
-  { valor: "before_after", label: "Antes e Depois" },
+  // { valor: "before_after", label: "Antes e Depois" },
   { valor: "galeria", label: "Galeria" },
 ];
 

@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import Upload from "../components/Upload";
 import ListaMedias from "../components/ListaMedias";
+import UploadBeforeAfter from "../components/UploadBeforeAfter";
+import ListaBeforeAfter from "../components/ListaBeforeAfter";
 
 export interface Media {
   id: string;
@@ -15,8 +17,18 @@ export interface Media {
   criadoEm: string;
 }
 
+export interface BeforeAfter {
+  id: string;
+  titulo: string;
+  descricao: string;
+  beforeUrl: string;
+  afterUrl: string;
+  ativo: boolean;
+}
+
 export default function Dashboard() {
   const [medias, setMedias] = useState<Media[]>([]);
+  const [beforeAfters, setBeforeAfters] = useState<BeforeAfter[]>([]);
   const [carregando, setCarregando] = useState(true);
   const navigate = useNavigate();
 
@@ -26,13 +38,24 @@ export default function Dashboard() {
       setMedias(response.data);
     } catch {
       console.error("Erro ao buscar mídias");
+    }
+  };
+
+  const buscarBeforeAfters = async () => {
+    try {
+      const response = await api.get("/before-after");
+      setBeforeAfters(response.data);
+    } catch {
+      console.error("Erro ao buscar before & afters");
     } finally {
       setCarregando(false);
     }
   };
 
   useEffect(() => {
-    buscarMedias();
+    Promise.all([buscarMedias(), buscarBeforeAfters()]).finally(() =>
+      setCarregando(false),
+    );
   }, []);
 
   const handleLogout = () => {
@@ -60,6 +83,22 @@ export default function Dashboard() {
             <p style={styles.info}>Nenhuma mídia cadastrada ainda.</p>
           ) : (
             <ListaMedias medias={medias} onAtualizar={buscarMedias} />
+          )}
+        </section>
+
+        <UploadBeforeAfter onUploadConcluido={buscarBeforeAfters} />
+
+        <section style={styles.secao}>
+          <h2 style={styles.secaoTitulo}>Antes & Depois cadastrados</h2>
+          {carregando ? (
+            <p style={styles.info}>Carregando...</p>
+          ) : beforeAfters.length === 0 ? (
+            <p style={styles.info}>Nenhum cadastrado ainda.</p>
+          ) : (
+            <ListaBeforeAfter
+              items={beforeAfters}
+              onAtualizar={buscarBeforeAfters}
+            />
           )}
         </section>
       </main>
