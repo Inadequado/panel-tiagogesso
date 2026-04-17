@@ -5,6 +5,7 @@ import Upload from "../components/Upload";
 import ListaMedias from "../components/ListaMedias";
 import UploadBeforeAfter from "../components/UploadBeforeAfter";
 import ListaBeforeAfter from "../components/ListaBeforeAfter";
+import UploadYoutube from "../components/UploadYoutube";
 
 export interface Media {
   id: string;
@@ -74,6 +75,7 @@ export default function Dashboard() {
 
       <main style={styles.main}>
         <Upload onUploadConcluido={buscarMedias} />
+        <UploadYoutube onUploadConcluido={buscarMedias} />
 
         <section style={styles.secao}>
           <h2 style={styles.secaoTitulo}>Mídias cadastradas</h2>
